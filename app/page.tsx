@@ -1,4 +1,4 @@
-import Calender from '@/components/calendar/Calender'
+import Calendar from '@/components/calendar/Calendar'
 import Header from '@/components/header/Header'
 
 const HomePage = () => {
@@ -6,7 +6,7 @@ const HomePage = () => {
     <div className='h-full bg-base-100'>
       <Header />
       <div>
-        <Calender />
+        <Calendar />
       </div>
     </div>
   )

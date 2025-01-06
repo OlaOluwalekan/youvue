@@ -5,14 +5,17 @@ import { useState } from 'react'
 const Month = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date())
 
+  //   get the number of days in the currently viewed month
   const daysInCurrentMonth = (year: number, month: number) => {
     return new Date(year, month + 1, 0).getDate()
   }
 
+  //   get the first day of the currently viewed month
   const firstDayInCurrentMonth = (year: number, month: number) => {
     return new Date(year, month, 1).getDay()
   }
 
+  //   render the days of the currently viewed month
   const renderDays = () => {
     const days = []
     const year = currentMonth.getFullYear()
@@ -54,6 +57,7 @@ const Month = () => {
     return days
   }
 
+  //   render the days headings
   const renderDaysHeadings = () => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     return days.map((day) => (
@@ -68,7 +72,9 @@ const Month = () => {
 
   return (
     <div>
+      {/* calendar header */}
       <div className='flex justify-between items-center mb-4'>
+        {/* previous button */}
         <button
           onClick={() =>
             setCurrentMonth(
@@ -80,10 +86,14 @@ const Month = () => {
           <article className='w-7 h-7 bg-primary absolute top-0 bottom-0 my-auto left-[-15px] rotate-45'></article>
           Prev
         </button>
+
+        {/* month and year indicator */}
         <h2 className='text-2xl font-semibold'>
           {currentMonth.toLocaleDateString('default', { month: 'long' })}{' '}
           {currentMonth.getFullYear()}
         </h2>
+
+        {/* next button */}
         <button
           onClick={() =>
             setCurrentMonth(
@@ -96,6 +106,8 @@ const Month = () => {
           Next
         </button>
       </div>
+
+      {/* days grid */}
       <div className='grid grid-cols-7 gap-2 text-base-content'>
         {renderDaysHeadings()}
         {renderDays()}
