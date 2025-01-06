@@ -3,7 +3,7 @@ import Header from '@/components/header/Header'
 
 const HomePage = () => {
   return (
-    <div>
+    <div className='h-full bg-base-100'>
       <Header />
       <div>
         <Calender />

@@ -17,20 +17,34 @@ const Month = () => {
     const days = []
     const year = currentMonth.getFullYear()
     const month = currentMonth.getMonth()
-    const totalDays = daysInCurrentMonth(year, month)
     const firstDay = firstDayInCurrentMonth(year, month)
 
     for (let i = 0; i < firstDay; i++) {
       days.push(
-        <div className='border bg-gray-100 opacity-50 w-full aspect-square max-h-[70px]'></div>
+        <div
+          key={`empty-${i}`}
+          className='border bg-gray-100 opacity-50 w-full aspect-square max-h-[70px]'
+        ></div>
       )
     }
 
     for (let i = 1; i <= daysInCurrentMonth(year, month); i++) {
+      const now = new Date()
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      const date = new Date(
+        currentMonth.getFullYear(),
+        currentMonth.getMonth(),
+        i
+      )
+
       days.push(
         <div
           key={i}
-          className='border border-gray-300 w-full aspect-square max-h-[70px] flex justify-center items-center text-center cursor-pointer hover:bg-blue-200 hover:text-gray-700'
+          className={`border border-accent w-full aspect-square max-h-[70px] flex justify-center items-center text-center cursor-pointer hover:bg-blue-200 hover:text-accent ${
+            today.toLocaleDateString() == date.toLocaleDateString()
+              ? 'bg-secondary text-secondary-content'
+              : 'bg-base-100'
+          }`}
         >
           {i}
         </div>
@@ -45,7 +59,7 @@ const Month = () => {
     return days.map((day) => (
       <div
         key={day}
-        className='w-full aspect-square max-h-[70px] flex justify-center items-center'
+        className='w-full aspect-square max-h-[70px] flex justify-center items-center text-primary font-semibold'
       >
         {day}
       </div>
@@ -61,10 +75,12 @@ const Month = () => {
               new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1)
             )
           }
+          className='bg-primary w-20 h-10 text-primary-content relative ml-5'
         >
+          <article className='w-7 h-7 bg-primary absolute top-0 bottom-0 my-auto left-[-15px] rotate-45'></article>
           Prev
         </button>
-        <h2>
+        <h2 className='text-2xl font-semibold'>
           {currentMonth.toLocaleDateString('default', { month: 'long' })}{' '}
           {currentMonth.getFullYear()}
         </h2>
@@ -74,11 +90,13 @@ const Month = () => {
               new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1)
             )
           }
+          className='bg-primary w-20 h-10 text-primary-content relative mr-5'
         >
+          <article className='w-7 h-7 bg-primary absolute top-0 bottom-0 my-auto right-[-15px] rotate-45'></article>
           Next
         </button>
       </div>
-      <div className='grid grid-cols-7 gap-2'>
+      <div className='grid grid-cols-7 gap-2 text-base-content'>
         {renderDaysHeadings()}
         {renderDays()}
       </div>
