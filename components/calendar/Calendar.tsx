@@ -8,7 +8,7 @@ const Calendar = () => {
   const { selectedView } = useSelector((store: RootState) => store.calendar)
 
   return (
-    <div className='p-4 text-primary'>
+    <div className='p-4 text-primary w-full'>
       {selectedView === 'month' && <Month />}
     </div>
   )
