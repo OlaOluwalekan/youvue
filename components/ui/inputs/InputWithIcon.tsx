@@ -1,4 +1,5 @@
 import { InputWithIconProps } from '@/types/input.interface'
+import clsx from 'clsx'
 
 const InputWithIcon = ({
   type,
@@ -8,10 +9,16 @@ const InputWithIcon = ({
   errorMessage,
   value,
   onChange,
+  name,
 }: InputWithIconProps) => {
   return (
     <div className='w-full'>
-      <label className='input input-bordered flex items-center gap-2'>
+      <label
+        className={clsx(
+          'input input-bordered flex items-center gap-2',
+          hasError && 'border-red-500'
+        )}
+      >
         <span className='text-primary'>{icon}</span>
         <input
           type={type}
@@ -19,6 +26,7 @@ const InputWithIcon = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          name={name}
         />
       </label>
       {hasError && (
