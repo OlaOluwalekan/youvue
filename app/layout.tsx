@@ -29,7 +29,7 @@ export default function RootLayout({
       <ThemeProvider>
         <html lang='en'>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen bg-base-100`}
           >
             {children}
           </body>

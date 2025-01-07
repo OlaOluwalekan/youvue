@@ -26,7 +26,7 @@ const Month = () => {
       days.push(
         <div
           key={`empty-${i}`}
-          className='border bg-gray-100 opacity-50 w-full aspect-square max-h-[70px]'
+          className='border bg-gray-100 opacity-10 w-full aspect-square max-h-[70px]'
         ></div>
       )
     }
