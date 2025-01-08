@@ -24,12 +24,13 @@ export const login = async (formData: FormData) => {
 
   //   try to login user
   try {
+    // validate inputs
     LoginSchema.safeParse({ email, password })
+    return ActionResponse.success('Login successfully', { email, password })
   } catch (error: any) {
     if (error.name === 'ZodError') {
       return ActionResponse.error(JSON.parse(error.message)[0].message)
     }
+    return ActionResponse.error('something went wrong')
   }
-
-  return ActionResponse.success('Login successfully', { email, password })
 }

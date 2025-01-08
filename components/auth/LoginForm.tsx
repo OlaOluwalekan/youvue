@@ -24,6 +24,8 @@ const LoginForm = () => {
       setEmailError({ error: false, message: '' })
       setPasswordError({ error: false, message: '' })
     }, 3000)
+
+    return () => clearInterval(interval)
   }, [emailError, passwordError])
 
   const handleSubmit = (formData: FormData) => {
@@ -56,6 +58,7 @@ const LoginForm = () => {
     <form
       className='w-[90%] max-w-[400px] bg-base-100 text-base-content px-3 py-3 rounded shadow-xl flex flex-col gap-2'
       action={handleSubmit}
+      noValidate
     >
       <p className='text-xs text-base-content/80'>WELCOME BACK</p>
       <h3 className='font-semibold'>Login to your account</h3>
