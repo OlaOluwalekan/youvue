@@ -8,6 +8,7 @@ import BasicButton from '../ui/buttons/BasicButton'
 import AuthButton from '../ui/buttons/AuthButton'
 import Link from 'next/link'
 import { login } from '@/utils/actions/login'
+import { useRouter } from 'next/navigation'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('')
@@ -18,6 +19,7 @@ const LoginForm = () => {
     error: false,
     message: '',
   })
+  const router = useRouter()
 
   useEffect(() => {
     let interval = setTimeout(() => {
@@ -34,20 +36,24 @@ const LoginForm = () => {
     startLoginProcess(() => {
       login(formData).then((res) => {
         if (res.success) {
-          console.log(res.data)
+          // console.log(res.data)
+          router.push('/')
         } else {
+          let errorMessage = res.message.toLowerCase()
           //   console.log(res.message)
-          if (res.message.toLowerCase().includes('email')) {
+          if (errorMessage.includes('email')) {
             setEmailError({
               error: true,
               message: res.message,
             })
           }
-          if (res.message.toLowerCase().includes('password')) {
+          if (errorMessage.includes('password')) {
             setPasswordError({
               error: true,
               message: res.message,
             })
+          } else {
+            console.log(res.message, res.data)
           }
         }
       })
@@ -82,7 +88,11 @@ const LoginForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         name='password'
       />
-      <BasicButton type='submit' text='Login' />
+      <BasicButton
+        type='submit'
+        text={isLoading ? 'Please wait...' : 'Login'}
+        disabled={isLoading}
+      />
 
       <div className='divider divider-neutral'>OR</div>
 

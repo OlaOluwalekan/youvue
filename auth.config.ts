@@ -10,6 +10,8 @@ export default {
         password: {},
       },
       async authorize(credentials) {
+        // console.log('here in credentials', credentials)
+
         const user = await getUserByEmail(credentials?.email as string)
         if (!user || !user.password) {
           return null
@@ -21,6 +23,8 @@ export default {
         )
         if (passwordMatch) {
           return user
+        } else {
+          throw new Error('Invalid credentials')
         }
 
         return null
