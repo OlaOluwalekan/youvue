@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import StoreProvider from '@/providers/StoreProvider'
 import ThemeProvider from '@/providers/ThemeProvider'
+import PopupDismissProvider from '@/providers/PopupDismissProvider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -27,13 +28,15 @@ export default function RootLayout({
   return (
     <StoreProvider>
       <ThemeProvider>
-        <html lang='en'>
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen bg-base-100`}
-          >
-            {children}
-          </body>
-        </html>
+        <PopupDismissProvider>
+          <html lang='en'>
+            <body
+              className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen bg-base-100`}
+            >
+              {children}
+            </body>
+          </html>
+        </PopupDismissProvider>
       </ThemeProvider>
     </StoreProvider>
   )
