@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import themeSlice from './store/themeSlice'
 import calendarSlice from './store/calendarSlice'
 import sidebarSlice from './store/sidebarSlice'
+import generalSlice from './store/generalSlice'
 
 const store = configureStore({
   reducer: {
@@ -9,6 +10,7 @@ const store = configureStore({
     theme: themeSlice,
     calendar: calendarSlice,
     sidebar: sidebarSlice,
+    general: generalSlice,
   },
 })
 

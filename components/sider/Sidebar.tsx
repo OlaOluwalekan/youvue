@@ -7,6 +7,8 @@ import Logo from '../header/Logo'
 import { FaTimes } from 'react-icons/fa'
 import { toggleSidebar } from '@/store/sidebarSlice'
 import ViewList from './ViewList'
+import { FaGear } from 'react-icons/fa6'
+import { changePage } from '@/store/generalSlice'
 
 const Sidebar = () => {
   const { sidebarIsOpen } = useSelector((store: RootState) => store.sidebar)
@@ -38,6 +40,15 @@ const Sidebar = () => {
 
         <div className='text-base-content'>
           <ViewList />
+          <button
+            className='flex gap-3 items-center leading-10 px-4'
+            onClick={() => {
+              dispatch(changePage('settings'))
+              dispatch(toggleSidebar(false))
+            }}
+          >
+            <FaGear /> Settings
+          </button>
         </div>
       </div>
     </div>

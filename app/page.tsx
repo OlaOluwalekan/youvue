@@ -1,6 +1,7 @@
 import { auth } from '@/auth'
 import Calendar from '@/components/calendar/Calendar'
 import Header from '@/components/header/Header'
+import PageHandler from '@/components/home/PageHandler'
 import Sidebar from '@/components/sider/Sidebar'
 
 const HomePage = async () => {
@@ -12,7 +13,8 @@ const HomePage = async () => {
       <Sidebar />
       <div className='w-full'>
         <Header session={session} />
-        <Calendar />
+        {/* <Calendar /> */}
+        <PageHandler />
       </div>
     </div>
   )

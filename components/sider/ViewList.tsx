@@ -6,8 +6,11 @@ import {
   setSelectedView,
   setSelectedViewPopupIsOpen,
 } from '@/store/calendarSlice'
+import { changePage } from '@/store/generalSlice'
+import { toggleSidebar } from '@/store/sidebarSlice'
 import clsx from 'clsx'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa6'
+import { MdGridView } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 
 const ViewList = () => {
@@ -19,11 +22,14 @@ const ViewList = () => {
   return (
     <div className='relative'>
       <button
-        className='a-modal capitalize flex gap-4 items-center px-4 py-2'
+        className='a-modal capitalize flex gap-4 items-center px-4 leading-10'
         onClick={() =>
           dispatch(setSelectedViewPopupIsOpen(!selectedViewPopupIsOpen))
         }
       >
+        <span>
+          <MdGridView />
+        </span>
         {selectedView}{' '}
         <span className='pointer-events-none'>
           {selectedViewPopupIsOpen ? <FaChevronUp /> : <FaChevronDown />}
@@ -46,7 +52,9 @@ const ViewList = () => {
                 )}
                 onClick={() => {
                   dispatch(setSelectedView(view))
+                  dispatch(changePage('calendar'))
                   dispatch(setSelectedViewPopupIsOpen(false))
+                  dispatch(toggleSidebar(false))
                 }}
               >
                 {view}
