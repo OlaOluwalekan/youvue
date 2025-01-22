@@ -9,6 +9,7 @@ import AuthButton from '../ui/buttons/AuthButton'
 import Link from 'next/link'
 import { login } from '@/utils/actions/login'
 import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('')
@@ -100,7 +101,13 @@ const LoginForm = () => {
         type='button'
         text='Login with Google'
         icon={<FcGoogle />}
-        onClick={() => {}}
+        onClick={async () => {
+          try {
+            await signIn('google', { callbackUrl: '/' })
+          } catch (error) {
+            console.log('error in google login:', error)
+          }
+        }}
       />
 
       <article className='text-center text-xs mt-5'>

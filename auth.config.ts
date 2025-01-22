@@ -1,4 +1,5 @@
 import Credentials from 'next-auth/providers/credentials'
+import Google from 'next-auth/providers/google'
 import { getUserByEmail } from './utils/actions/user'
 import bcrypt from 'bcryptjs'
 
@@ -29,6 +30,10 @@ export default {
 
         return null
       },
+    }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
 }

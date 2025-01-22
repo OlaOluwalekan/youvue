@@ -60,6 +60,8 @@ export const register = async (formData: FormData) => {
     }
 
     console.log('error in register schema:', error)
-    return ActionResponse.error('something went wrong')
+    // console.log(error);
+
+    return ActionResponse.error('something went wrong', error)
   }
 }

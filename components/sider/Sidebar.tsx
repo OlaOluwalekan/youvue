@@ -5,12 +5,15 @@ import clsx from 'clsx'
 import { useDispatch, useSelector } from 'react-redux'
 import Logo from '../header/Logo'
 import { FaTimes } from 'react-icons/fa'
+import { IoMdLogOut } from 'react-icons/io'
 import { toggleSidebar } from '@/store/sidebarSlice'
 import ViewList from './ViewList'
 import { FaGear } from 'react-icons/fa6'
 import { changePage } from '@/store/generalSlice'
+import { signOut } from 'next-auth/react'
+import { Session } from 'next-auth'
 
-const Sidebar = () => {
+const Sidebar = ({ session }: { session: Session | null }) => {
   const { sidebarIsOpen } = useSelector((store: RootState) => store.sidebar)
   const dispatch = useDispatch()
 
@@ -24,7 +27,7 @@ const Sidebar = () => {
     >
       <div
         className={clsx(
-          'w-[300px] h-full bg-base-200 shadow-lg md:shadow-none'
+          'w-[300px] h-full bg-base-200 shadow-lg flex flex-col md:shadow-none'
         )}
         onClick={(e) => e.stopPropagation()}
       >
@@ -38,17 +41,34 @@ const Sidebar = () => {
           </button>
         </article>
 
-        <div className='text-base-content'>
-          <ViewList />
-          <button
-            className='flex gap-3 items-center leading-10 px-4'
-            onClick={() => {
-              dispatch(changePage('settings'))
-              dispatch(toggleSidebar(false))
-            }}
-          >
-            <FaGear /> Settings
-          </button>
+        <div className='text-base-content flex flex-col items-start justify-between flex-grow'>
+          <div>
+            <ViewList />
+            <button
+              className='flex gap-3 items-center leading-10 px-4'
+              onClick={() => {
+                dispatch(changePage('settings'))
+                dispatch(toggleSidebar(false))
+              }}
+            >
+              <FaGear /> Settings
+            </button>
+          </div>
+
+          {session && (
+            <article className='flex justify-center w-full p-1'>
+              <button
+                className='bg-secondary text-secondary-content w-full flex justify-center items-center gap-2 py-2 text-base'
+                onClick={() => {
+                  signOut()
+                  dispatch(toggleSidebar(false))
+                }}
+              >
+                <IoMdLogOut />
+                Log Out
+              </button>
+            </article>
+          )}
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ const HomePage = async () => {
 
   return (
     <div className='h-full bg-base-100 md:flex'>
-      <Sidebar />
+      <Sidebar session={session} />
       <div className='w-full'>
         <Header session={session} />
         {/* <Calendar /> */}

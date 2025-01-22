@@ -3,6 +3,7 @@ import themeSlice from './store/themeSlice'
 import calendarSlice from './store/calendarSlice'
 import sidebarSlice from './store/sidebarSlice'
 import generalSlice from './store/generalSlice'
+import notesSlice from './store/notesSlice'
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     calendar: calendarSlice,
     sidebar: sidebarSlice,
     general: generalSlice,
+    notes: notesSlice,
   },
 })
 
