@@ -8,6 +8,7 @@ import Link from 'next/link'
 import AddNoteButton from '../notes/AddNoteButton'
 import { Session } from 'next-auth'
 import LinkButton from '../ui/buttons/LinkButton'
+import TodayButton from './TodayButton'
 
 const Header = ({ session }: { session: Session | null }) => {
   const dispatch = useDispatch()
@@ -25,7 +26,8 @@ const Header = ({ session }: { session: Session | null }) => {
           <Logo />
         </div>
 
-        <div>
+        <div className='flex gap-2'>
+          <TodayButton />
           {session ? (
             <AddNoteButton />
           ) : (
