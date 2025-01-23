@@ -2,7 +2,7 @@ import { CalendarInitProps, SelectedViewType } from '@/types/calender.interface'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState: CalendarInitProps = {
-  selectedView: 'day',
+  selectedView: 'week',
   selectedViewPopupIsOpen: false,
   inViewDateString: new Date().toISOString(),
 }
@@ -17,10 +17,16 @@ const calendarSlice = createSlice({
     setSelectedViewPopupIsOpen: (state, { payload }: { payload: boolean }) => {
       state.selectedViewPopupIsOpen = payload
     },
+    setInViewDateString: (state, { payload }: { payload: string }) => {
+      state.inViewDateString = payload
+    },
   },
 })
 
-export const { setSelectedView, setSelectedViewPopupIsOpen } =
-  calendarSlice.actions
+export const {
+  setSelectedView,
+  setSelectedViewPopupIsOpen,
+  setInViewDateString,
+} = calendarSlice.actions
 
 export default calendarSlice.reducer
