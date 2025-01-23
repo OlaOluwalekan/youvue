@@ -1,9 +1,12 @@
 'use client'
 
+import { RootState } from '@/store'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const Month = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date())
+  const { inViewDateString } = useSelector((store: RootState) => store.calendar)
+  const [currentMonth, setCurrentMonth] = useState(new Date(inViewDateString))
 
   //   get the number of days in the currently viewed month
   const daysInCurrentMonth = (year: number, month: number) => {

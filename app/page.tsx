@@ -11,10 +11,11 @@ const HomePage = async () => {
   return (
     <div className='h-full bg-base-100 md:flex'>
       <Sidebar session={session} />
-      <div className='w-full'>
+      <div className='w-full h-full flex flex-col'>
         <Header session={session} />
-        {/* <Calendar /> */}
-        <PageHandler />
+        <div className='flex-grow flex flex-col h-full overflow-auto'>
+          <PageHandler />
+        </div>
       </div>
     </div>
   )

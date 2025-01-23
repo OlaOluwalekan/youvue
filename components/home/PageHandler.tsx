@@ -9,7 +9,7 @@ const PageHandler = () => {
   const { page } = useSelector((store: RootState) => store.general)
 
   return (
-    <div>
+    <div className='h-full'>
       {page === 'calendar' && <Calendar />}
       {page === 'settings' && <Settings />}
     </div>

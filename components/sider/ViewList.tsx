@@ -37,7 +37,7 @@ const ViewList = () => {
       </button>
 
       {selectedViewPopupIsOpen && (
-        <div className='flex flex-col items-start w-[250px] rounded absolute right-3 shadow-lg bg-base-300 overflow-hidden'>
+        <div className='flex flex-col items-start w-[250px] rounded absolute left-2 shadow-lg bg-base-300 overflow-hidden'>
           {views.map((view, i) => {
             return (
               <button

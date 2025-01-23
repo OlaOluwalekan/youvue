@@ -1,10 +1,10 @@
 import { ChangeEvent, ReactNode } from 'react'
 
 export interface InputProps {
-  type: string
+  type?: string
   name?: string
   value?: string
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   placeholder?: string
   hasError?: boolean
   errorMessage?: string
@@ -13,4 +13,9 @@ export interface InputProps {
 
 export interface InputWithIconProps extends InputProps {
   icon: ReactNode
+}
+
+export interface TextBoxInputProps extends InputProps {
+  rows?: number
+  cols?: number
 }

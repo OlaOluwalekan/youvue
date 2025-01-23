@@ -14,4 +14,7 @@ export type SelectedViewType =
 export interface CalendarInitProps {
   selectedView: SelectedViewType
   selectedViewPopupIsOpen: boolean
+  inViewDateString: string
 }
+
+export type occurrenceType = 'NONE' | 'DAILY' | 'MONTHLY' | 'YEARLY' | 'RANGE'
