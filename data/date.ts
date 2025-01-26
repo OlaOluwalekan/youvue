@@ -47,5 +47,5 @@ export const hoursArray = [
   { start: '08:00pm', end: '09:00pm' },
   { start: '09:00pm', end: '10:00pm' },
   { start: '10:00pm', end: '11:00pm' },
-  // {start: "11:00pm", end: "12:00am"},
+  { start: '11:00pm', end: '12:00am' },
 ]
