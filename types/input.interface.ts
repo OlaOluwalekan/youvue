@@ -1,10 +1,17 @@
 import { ChangeEvent, ReactNode } from 'react'
 
+export type CustomChangeEvent = (
+  e:
+    | { target: { name: string; value: string } }
+    | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+) => void
+
 export interface InputProps {
   type?: string
   name?: string
   value?: string
-  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  // onChange?: any
+  onChange?: any
   placeholder?: string
   hasError?: boolean
   errorMessage?: string
@@ -18,4 +25,8 @@ export interface InputWithIconProps extends InputProps {
 export interface TextBoxInputProps extends InputProps {
   rows?: number
   cols?: number
+}
+
+export interface SelectProps extends InputProps {
+  options: any[]
 }

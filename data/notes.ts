@@ -1,7 +1,7 @@
 export const occurrenceList = [
-  { id: '1', label: 'none', value: 'NONE' },
-  { id: '2', label: 'daily', value: 'DAILY' },
-  { id: '3', label: 'monthly', value: 'MONTHLY' },
-  { id: '4', label: 'yearly', value: 'YEARLY' },
-  { id: '5', label: 'range', value: 'RANGE' },
+  { id: '1', label: 'None', value: 'NONE' },
+  { id: '2', label: 'Daily', value: 'DAILY' },
+  { id: '3', label: 'Monthly', value: 'MONTHLY' },
+  { id: '4', label: 'Yearly', value: 'YEARLY' },
+  { id: '5', label: 'Range', value: 'RANGE' },
 ]
