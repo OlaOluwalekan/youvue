@@ -17,7 +17,14 @@ export interface CalendarInitProps {
   inViewDateString: string
 }
 
-export type occurrenceType = 'NONE' | 'DAILY' | 'MONTHLY' | 'YEARLY' | 'RANGE'
+export type occurrenceType =
+  | 'NONE'
+  | 'DAILY'
+  | 'WEEKLY'
+  | 'BIWEEKLY'
+  | 'MONTHLY'
+  | 'YEARLY'
+  | 'RANGE'
 
 export type ValuePiece = Date | null
 
@@ -26,13 +33,13 @@ export type CalendarValueType = ValuePiece | [ValuePiece, ValuePiece]
 export interface CalendarSelectProps {
   value: CalendarValueType
   setValue: (value: CalendarValueType) => void
-  dates: CalendarValueType[]
-  setDates: (value: CalendarValueType[]) => void
+  dates: Date[]
+  setDates: (value: Date[]) => void
 }
 
 export interface NotesDataProps {
   title: string
   description: string
-  occurrence: string
-  date: CalendarValueType
+  recurrence: occurrenceType
+  dates: Date[]
 }

@@ -8,11 +8,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// datasource db {
-//   provider = "mongodb"
-//   url      = env("DATABASE_URL")
-// }
-
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
@@ -27,6 +22,8 @@ enum UserRole {
 enum Recurrence {
   NONE
   DAILY
+  WEEKLY
+  BIWEEKLY
   MONTHLY
   YEARLY
   RANGE
@@ -39,7 +36,6 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
-  // tokens        Int       @default(10000)
   role          UserRole  @default(USER)
   accounts      Account[]
   note          Note[]
@@ -47,7 +43,6 @@ model User {
 
 model Account {
   id                 String  @id @default(uuid())
-  // userId             String  @db.ObjectId
   userId             String
   type               String
   provider           String
@@ -78,19 +73,19 @@ model Note {
   id            String @id @default(uuid())
   title         String
   description   String?
-  date          DateTime
+  dates         DateTime[]
   recurrence    Recurrence
-  range         Range[]
+  // range         Range[]
   userId        String
   user          User   @relation(fields: [userId], references: [id])
 }
 
-model Range {
-  id            String @id @default(uuid())
-  startDate     DateTime
-  endDate       DateTime
-  noteId        String
-  note          Note   @relation(fields: [noteId], references: [id], onDelete: Cascade)
+// model Range {
+//   id            String @id @default(uuid())
+//   startDate     DateTime
+//   endDate       DateTime
+//   noteId        String
+//   note          Note   @relation(fields: [noteId], references: [id], onDelete: Cascade)
 
-  @@index([noteId])
-}
+//   @@index([noteId])
+// }

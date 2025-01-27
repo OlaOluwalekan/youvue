@@ -29,7 +29,7 @@ const Header = ({ session }: { session: Session | null }) => {
         <div className='flex gap-2'>
           <TodayButton />
           {session ? (
-            <AddNoteButton />
+            <AddNoteButton session={session} />
           ) : (
             <LinkButton href='/login' text='Login' />
           )}

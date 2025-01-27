@@ -4,24 +4,28 @@ import { useDispatch } from 'react-redux'
 import Overlay from '../general/Overlay'
 import { toggleAddNoteIsOpen } from '@/store/notesSlice'
 import BasicInput from '../ui/inputs/BasicInput'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState, useTransition } from 'react'
 import TextBoxInput from '../ui/inputs/TextBoxInput'
 import BasicButton from '../ui/buttons/BasicButton'
 import Select from '../ui/inputs/Select'
 import { occurrenceList } from '@/data/notes'
 import CalendarSelect from './CalendarSelect'
 import { CalendarValueType, NotesDataProps } from '@/types/calender.interface'
+import { createNotes } from '@/utils/actions/notes'
+import { Session } from 'next-auth'
+import toast from 'react-hot-toast'
 
-const AddNotesForm = () => {
+const AddNotesForm = ({ session }: { session: Session }) => {
   const [noteData, setNoteData] = useState<NotesDataProps>({
     title: '',
     description: '',
-    occurrence: 'ONCE',
-    date: null,
+    recurrence: 'NONE',
+    dates: [],
   })
-  const [date, setDate] = useState<CalendarValueType>(noteData.date)
-  const [dates, setDates] = useState<CalendarValueType[]>([])
+  const [date, setDate] = useState<CalendarValueType>(null)
+  const [dates, setDates] = useState<Date[]>([])
   const dispatch = useDispatch()
+  const [creatingNotes, startNoteCreation] = useTransition()
 
   const handleNoteDataChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -30,16 +34,27 @@ const AddNotesForm = () => {
   }
 
   useEffect(() => {
-    setNoteData({ ...noteData, date })
+    setNoteData({ ...noteData, dates })
   }, [date])
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log(noteData, dates)
-    // dates.forEach((date) => {
-    //   console.log(date)
-    //   // console.log(date instanceof Date)
-    // })
+  const handleSubmit = () => {
+    startNoteCreation(() => {
+      createNotes(noteData, session.user?.id as string).then((res) => {
+        // console.log(res)
+        if (res.success) {
+          toast.success(res.message)
+          dispatch(toggleAddNoteIsOpen(false))
+          setNoteData({
+            title: '',
+            description: '',
+            recurrence: 'NONE',
+            dates: [],
+          })
+        } else {
+          toast.error(res.message)
+        }
+      })
+    })
   }
 
   return (
@@ -47,7 +62,7 @@ const AddNotesForm = () => {
       <form
         className='w-[90%] max-w-[400px] bg-base-300 p-4 rounded-lg flex flex-col gap-2'
         onClick={(e) => e.stopPropagation()}
-        onSubmit={handleSubmit}
+        action={handleSubmit}
       >
         <BasicInput
           type='text'
@@ -67,7 +82,7 @@ const AddNotesForm = () => {
         <Select
           options={occurrenceList}
           name='occurrence'
-          value={noteData.occurrence}
+          value={noteData.recurrence}
           onChange={handleNoteDataChange}
         />
 
@@ -78,7 +93,11 @@ const AddNotesForm = () => {
           setDates={setDates}
         />
 
-        <BasicButton type='submit' text='Add Note' />
+        <BasicButton
+          type='submit'
+          text={creatingNotes ? 'Please wait...' : 'Add Note'}
+          disabled={creatingNotes}
+        />
       </form>
     </Overlay>
   )

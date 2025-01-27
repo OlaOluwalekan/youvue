@@ -4,6 +4,7 @@ import './globals.css'
 import StoreProvider from '@/providers/StoreProvider'
 import ThemeProvider from '@/providers/ThemeProvider'
 import PopupDismissProvider from '@/providers/PopupDismissProvider'
+import { Toaster } from 'react-hot-toast'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,6 +35,7 @@ export default function RootLayout({
               className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen bg-base-100`}
             >
               {children}
+              <Toaster />
             </body>
           </html>
         </PopupDismissProvider>

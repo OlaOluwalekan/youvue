@@ -27,17 +27,17 @@ const CalendarSelect = ({
   const [dateIsOpen, setDateIsOpen] = useState(false)
   const [rangeAllowed, setRangeAllowed] = useState(false)
   const [calendarKey, setCalendarKey] = useState(0) // for resetting the calendar
-  const [allDates, setAllDates] = useState<Date[]>()
+  const [allDates, setAllDates] = useState<CalendarValueType[]>([])
   const [selectType, setSelectType] = useState('single')
 
   useEffect(() => {
-    setAllDates(flattenDate(dates))
+    setAllDates(convertToRanges(dates))
   }, [value])
 
   const handleSelectedDateChange = (value: CalendarValueType) => {
     const spreadDates = updateDates(dates, value)
-    const rangedDate = convertToRanges(spreadDates)
-    setDates(rangedDate)
+    // const rangedDate = convertToRanges(spreadDates)
+    setDates(spreadDates)
     setValue(value)
     if (selectType === 'single') {
       setDateIsOpen(false)
@@ -58,7 +58,7 @@ const CalendarSelect = ({
           className='underline max-w-[200px] whitespace-nowrap text-ellipsis overflow-hidden py-1 px-2 rounded-md hover:bg-base-100'
           onClick={() => setDateIsOpen(!dateIsOpen)}
         >
-          {formatDatesDisplay(dates)}
+          {formatDatesDisplay(allDates)}
         </button>
         <button
           type='button'
@@ -78,7 +78,7 @@ const CalendarSelect = ({
             selectRange={rangeAllowed}
             tileClassName={({ date, view }) =>
               // Add custom class for specific dates
-              view === 'month' && isHighlighted(date, allDates as Date[])
+              view === 'month' && isHighlighted(date, dates)
                 ? 'selected-date'
                 : ''
             }

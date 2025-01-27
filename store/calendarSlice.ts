@@ -2,7 +2,7 @@ import { CalendarInitProps, SelectedViewType } from '@/types/calender.interface'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState: CalendarInitProps = {
-  selectedView: 'week',
+  selectedView: 'month',
   selectedViewPopupIsOpen: false,
   inViewDateString: new Date().toISOString(),
 }

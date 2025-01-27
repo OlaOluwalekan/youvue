@@ -52,7 +52,7 @@ const Month = () => {
               : 'bg-base-100'
           }`}
         >
-          {i}
+          <span className='text-xs'>{i}</span>
         </div>
       )
     }

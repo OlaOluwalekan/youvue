@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import AddNotesForm from './AddNotesForm'
 import { RootState } from '@/store'
 import { toggleAddNoteIsOpen } from '@/store/notesSlice'
+import { Session } from 'next-auth'
 
-const AddNoteButton = () => {
+const AddNoteButton = ({ session }: { session: Session }) => {
   const { addNoteIsOpen } = useSelector((store: RootState) => store.notes)
   const dispatch = useDispatch()
 
@@ -17,7 +18,7 @@ const AddNoteButton = () => {
       >
         Add Note
       </button>
-      {addNoteIsOpen && <AddNotesForm />}
+      {addNoteIsOpen && <AddNotesForm session={session} />}
     </div>
   )
 }
