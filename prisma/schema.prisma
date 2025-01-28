@@ -73,7 +73,7 @@ model Note {
   id            String @id @default(uuid())
   title         String
   description   String?
-  dates         DateTime[]
+  dates         String[]
   recurrence    Recurrence
   // range         Range[]
   userId        String

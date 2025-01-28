@@ -151,3 +151,19 @@ export const convertToRanges = (dates: Date[]) => {
 
   return ranges
 }
+
+export const convertDatesArrayToStringDate = (dates: Date[]): string[] => {
+  const datesString = dates.map((date) => {
+    return date.toLocaleDateString()
+  })
+
+  return datesString
+}
+
+export const convertDateStringArrayToDate = (dateString: string[]): Date[] => {
+  const datesArray = dateString.map((date) => {
+    return new Date(date)
+  })
+
+  return datesArray
+}

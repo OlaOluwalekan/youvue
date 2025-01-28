@@ -1,6 +1,7 @@
+import { NotesInitialProps, NotesProps } from '@/types/notes.interface'
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+const initialState: NotesInitialProps = {
   addNoteIsOpen: false,
   notes: [],
 }
@@ -12,9 +13,12 @@ const notesSlice = createSlice({
     toggleAddNoteIsOpen: (state, { payload }) => {
       state.addNoteIsOpen = payload
     },
+    setNotes: (state, { payload }: { payload: NotesProps[] }) => {
+      state.notes = payload
+    },
   },
 })
 
-export const { toggleAddNoteIsOpen } = notesSlice.actions
+export const { toggleAddNoteIsOpen, setNotes } = notesSlice.actions
 
 export default notesSlice.reducer

@@ -5,6 +5,8 @@ import {
   CalendarValueType,
 } from '@/types/calender.interface'
 import {
+  convertDatesArrayToStringDate,
+  convertDateStringArrayToDate,
   convertToRanges,
   flattenDate,
   formatDatesDisplay,
@@ -31,13 +33,16 @@ const CalendarSelect = ({
   const [selectType, setSelectType] = useState('single')
 
   useEffect(() => {
-    setAllDates(convertToRanges(dates))
+    const datesArray = convertDateStringArrayToDate(dates)
+    setAllDates(convertToRanges(datesArray))
   }, [value])
 
   const handleSelectedDateChange = (value: CalendarValueType) => {
-    const spreadDates = updateDates(dates, value)
+    const datesArray = convertDateStringArrayToDate(dates)
+    const spreadDates = updateDates(datesArray, value)
+    const datesString = convertDatesArrayToStringDate(spreadDates)
     // const rangedDate = convertToRanges(spreadDates)
-    setDates(spreadDates)
+    setDates(datesString)
     setValue(value)
     if (selectType === 'single') {
       setDateIsOpen(false)
@@ -78,7 +83,8 @@ const CalendarSelect = ({
             selectRange={rangeAllowed}
             tileClassName={({ date, view }) =>
               // Add custom class for specific dates
-              view === 'month' && isHighlighted(date, dates)
+              view === 'month' &&
+              isHighlighted(date, convertDateStringArrayToDate(dates))
                 ? 'selected-date'
                 : ''
             }

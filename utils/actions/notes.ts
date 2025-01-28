@@ -3,6 +3,7 @@
 import { db } from '@/lib/db'
 import { NotesDataProps } from '@/types/calender.interface'
 import ActionResponse from '../responseTemplate'
+import { revalidatePath } from 'next/cache'
 
 export const createNotes = async (
   notesData: NotesDataProps,
@@ -14,6 +15,7 @@ export const createNotes = async (
       null
     )
   }
+
   try {
     const newNote = await db.note.create({
       data: {
@@ -21,10 +23,25 @@ export const createNotes = async (
         userId,
       },
     })
+    revalidatePath('/', 'layout')
 
     return ActionResponse.success('Note created successfully', newNote)
   } catch (error) {
+    return ActionResponse.error('Error fetching notes', error)
+  }
+}
+
+export const getAllUserNotes = async (userId: string) => {
+  try {
+    const notes = await db.note.findMany({
+      where: {
+        userId,
+      },
+    })
+
+    return ActionResponse.success('Notes fetched successfully', notes)
+  } catch (error) {
     console.error(error)
-    return ActionResponse.error('Failed to create note', null)
+    return ActionResponse.error('Error fetching notes', null)
   }
 }

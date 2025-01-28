@@ -2,7 +2,7 @@
 
 import { useDispatch } from 'react-redux'
 import Overlay from '../general/Overlay'
-import { toggleAddNoteIsOpen } from '@/store/notesSlice'
+import { setNotes, toggleAddNoteIsOpen } from '@/store/notesSlice'
 import BasicInput from '../ui/inputs/BasicInput'
 import { ChangeEvent, useEffect, useState, useTransition } from 'react'
 import TextBoxInput from '../ui/inputs/TextBoxInput'
@@ -11,7 +11,7 @@ import Select from '../ui/inputs/Select'
 import { occurrenceList } from '@/data/notes'
 import CalendarSelect from './CalendarSelect'
 import { CalendarValueType, NotesDataProps } from '@/types/calender.interface'
-import { createNotes } from '@/utils/actions/notes'
+import { createNotes, getAllUserNotes } from '@/utils/actions/notes'
 import { Session } from 'next-auth'
 import toast from 'react-hot-toast'
 
@@ -23,13 +23,15 @@ const AddNotesForm = ({ session }: { session: Session }) => {
     dates: [],
   })
   const [date, setDate] = useState<CalendarValueType>(null)
-  const [dates, setDates] = useState<Date[]>([])
+  const [dates, setDates] = useState<string[]>([])
   const dispatch = useDispatch()
   const [creatingNotes, startNoteCreation] = useTransition()
 
   const handleNoteDataChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    console.log(e.target)
+
     setNoteData({ ...noteData, [e.target.name]: e.target.value })
   }
 
@@ -40,7 +42,6 @@ const AddNotesForm = ({ session }: { session: Session }) => {
   const handleSubmit = () => {
     startNoteCreation(() => {
       createNotes(noteData, session.user?.id as string).then((res) => {
-        // console.log(res)
         if (res.success) {
           toast.success(res.message)
           dispatch(toggleAddNoteIsOpen(false))
@@ -49,6 +50,9 @@ const AddNotesForm = ({ session }: { session: Session }) => {
             description: '',
             recurrence: 'NONE',
             dates: [],
+          })
+          getAllUserNotes(session.user?.id as string).then((res) => {
+            dispatch(setNotes(res.data))
           })
         } else {
           toast.error(res.message)
@@ -81,7 +85,7 @@ const AddNotesForm = ({ session }: { session: Session }) => {
 
         <Select
           options={occurrenceList}
-          name='occurrence'
+          name='recurrence'
           value={noteData.recurrence}
           onChange={handleNoteDataChange}
         />

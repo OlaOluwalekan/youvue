@@ -33,13 +33,13 @@ export type CalendarValueType = ValuePiece | [ValuePiece, ValuePiece]
 export interface CalendarSelectProps {
   value: CalendarValueType
   setValue: (value: CalendarValueType) => void
-  dates: Date[]
-  setDates: (value: Date[]) => void
+  dates: string[]
+  setDates: (value: string[]) => void
 }
 
 export interface NotesDataProps {
   title: string
   description: string
   recurrence: occurrenceType
-  dates: Date[]
+  dates: string[]
 }
